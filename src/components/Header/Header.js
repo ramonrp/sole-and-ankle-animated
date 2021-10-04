@@ -146,14 +146,15 @@ const NavLink = styled.a`
 `;
 
 const RegularSpan = styled.div`
-  transition: transform 300ms;
   ${NavLink}:hover & {
     transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 300ms;
   }
 `;
 
 const HoverSpan = styled.div`
-  transition: transform 300ms;
   position: absolute;
   top: 0;
   left: 0;
@@ -164,6 +165,10 @@ const HoverSpan = styled.div`
 
   ${NavLink}:hover & {
     transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 300ms;
   }
 `;
 
