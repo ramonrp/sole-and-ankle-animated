@@ -79,11 +79,16 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  transition: transform 400ms;
   transform-origin: center 75%;
   &:hover {
     transform: scale(1.1);
-    transition: transform 200ms;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 400ms;
+    &:hover {
+      transition: transform 200ms;
+    }
   }
 `;
 
