@@ -9,6 +9,47 @@ import UnstyledButton from "../UnstyledButton";
 import Icon from "../Icon";
 import VisuallyHidden from "../VisuallyHidden";
 
+const LINKS = [
+  {
+    href: "/sale",
+    text: "sale",
+  },
+  {
+    href: "/new",
+    text: "new release",
+  },
+  {
+    href: "/men",
+    text: "men",
+  },
+  {
+    href: "/women",
+    text: "women",
+  },
+  {
+    href: "/kids",
+    text: "kids",
+  },
+  {
+    href: "/collection",
+    text: "collection",
+  },
+];
+
+const SUBLINKS = [
+  {
+    href: "/terms",
+    text: "Terms and Conditions",
+  },
+  {
+    href: "/privacy",
+    text: "Privacy Policy",
+  },
+  {
+    href: "/contact",
+    text: "Contact Us",
+  },
+];
 const fadeIn = keyframes`
   from{
     opacity: 0;
@@ -23,7 +64,7 @@ const slideIn = keyframes`
     transform: translateX(100%);
   }
   to{
-    transform: translateX(calc(0% + var(--extra-space)));
+    transform: translateX(0%)
   }
   
   `;
@@ -44,35 +85,18 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
           </CloseButton>
           <Filler />
           <Nav>
-            <NavLink animationDelay="300ms" href="/sale">
-              Sale
-            </NavLink>
-            <NavLink animationDelay="325ms" href="/new">
-              New&nbsp;Releases
-            </NavLink>
-            <NavLink animationDelay="350ms" href="/men">
-              Men
-            </NavLink>
-            <NavLink animationDelay="375ms" href="/women">
-              Women
-            </NavLink>
-            <NavLink animationDelay="400ms" href="/kids">
-              Kids
-            </NavLink>
-            <NavLink animationDelay="425ms" href="/collections">
-              Collections
-            </NavLink>
+            {LINKS.map(({ href, text }, i) => (
+              <NavLink delay={i + 1} key={i} href={href}>
+                {text}
+              </NavLink>
+            ))}
           </Nav>
           <Footer>
-            <SubLink animationDelay="450ms" href="/terms">
-              Terms and Conditions
-            </SubLink>
-            <SubLink animationDelay="475ms" href="/privacy">
-              Privacy Policy
-            </SubLink>
-            <SubLink animationDelay="500ms" href="/contact">
-              Contact Us
-            </SubLink>
+            {SUBLINKS.map(({ href, text }, i) => (
+              <SubLink delay={i + 1} key={i} href={href}>
+                {text}
+              </SubLink>
+            ))}
           </Footer>
         </ContentInner>
       </Content>
@@ -106,6 +130,7 @@ const Content = styled(DialogContent)`
   position: relative;
   background: white;
   width: calc(300px + var(--extra-space));
+  margin-right: calc(var(--extra-space) * -1);
   height: 100%;
   padding: 24px var(--padding-horizontal);
 
@@ -136,6 +161,7 @@ const Nav = styled.nav`
 `;
 
 const NavLink = styled.a`
+  --initial-delay: 300ms;
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
   text-decoration: none;
@@ -147,7 +173,10 @@ const NavLink = styled.a`
     color: var(--color-secondary);
   }
   @media (prefers-reduced-motion: no-preference) {
-    animation: ${SlideInAnimation};
+    animation: ${slideIn} 300ms both;
+    animation-delay: calc(
+      var(--initial-delay) + ${({ delay }) => delay * 50}ms
+    );
     will-change: transform;
   }
 `;
@@ -164,11 +193,16 @@ const Footer = styled.footer`
 `;
 
 const SubLink = styled.a`
+  --initial-delay: 600ms;
   color: var(--color-gray-700);
   font-size: 0.875rem;
   text-decoration: none;
+  margin-right: calc(var(--padding-horizontal) * -1);
   @media (prefers-reduced-motion: no-preference) {
-    animation: ${SlideInAnimation};
+    animation: ${slideIn} 300ms both;
+    animation-delay: calc(
+      var(--initial-delay) + ${({ delay }) => delay * 50}ms
+    );
     will-change: transform;
   }
 `;
