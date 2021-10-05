@@ -25,7 +25,11 @@ const slideIn = keyframes`
   to{
     transform: translateX(calc(0% + var(--extra-space)));
   }
+  
+  `;
 
+const SlideInAnimation = (props) => css`
+  ${slideIn} 300ms ${props.animationDelay} both;
 `;
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
@@ -40,17 +44,35 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
           </CloseButton>
           <Filler />
           <Nav>
-            <NavLink href="/sale">Sale</NavLink>
-            <NavLink href="/new">New&nbsp;Releases</NavLink>
-            <NavLink href="/men">Men</NavLink>
-            <NavLink href="/women">Women</NavLink>
-            <NavLink href="/kids">Kids</NavLink>
-            <NavLink href="/collections">Collections</NavLink>
+            <NavLink animationDelay="300ms" href="/sale">
+              Sale
+            </NavLink>
+            <NavLink animationDelay="325ms" href="/new">
+              New&nbsp;Releases
+            </NavLink>
+            <NavLink animationDelay="350ms" href="/men">
+              Men
+            </NavLink>
+            <NavLink animationDelay="375ms" href="/women">
+              Women
+            </NavLink>
+            <NavLink animationDelay="400ms" href="/kids">
+              Kids
+            </NavLink>
+            <NavLink animationDelay="425ms" href="/collections">
+              Collections
+            </NavLink>
           </Nav>
           <Footer>
-            <SubLink href="/terms">Terms and Conditions</SubLink>
-            <SubLink href="/privacy">Privacy Policy</SubLink>
-            <SubLink href="/contact">Contact Us</SubLink>
+            <SubLink animationDelay="450ms" href="/terms">
+              Terms and Conditions
+            </SubLink>
+            <SubLink animationDelay="475ms" href="/privacy">
+              Privacy Policy
+            </SubLink>
+            <SubLink animationDelay="500ms" href="/contact">
+              Contact Us
+            </SubLink>
           </Footer>
         </ContentInner>
       </Content>
@@ -80,11 +102,13 @@ const Backdrop = styled.div`
 
 const Content = styled(DialogContent)`
   --extra-space: 16px;
+  --padding-horizontal: 32px;
   position: relative;
   background: white;
   width: calc(300px + var(--extra-space));
   height: 100%;
-  padding: 24px 32px;
+  padding: 24px var(--padding-horizontal);
+
   @media (prefers-reduced-motion: no-preference) {
     animation: ${slideIn} 300ms 150ms cubic-bezier(0, 0.77, 0.11, 1.08) both;
     will-change: transform;
@@ -117,9 +141,14 @@ const NavLink = styled.a`
   text-decoration: none;
   font-size: 1.125rem;
   text-transform: uppercase;
+  margin-right: calc(var(--padding-horizontal) * -1);
 
   &:first-of-type {
     color: var(--color-secondary);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${SlideInAnimation};
+    will-change: transform;
   }
 `;
 
@@ -138,6 +167,10 @@ const SubLink = styled.a`
   color: var(--color-gray-700);
   font-size: 0.875rem;
   text-decoration: none;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${SlideInAnimation};
+    will-change: transform;
+  }
 `;
 
 export default MobileMenu;
